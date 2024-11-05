@@ -4,10 +4,7 @@ class Solution {
         int[] answerArray = new int[absolutes.length];
         
         for(int i=0; i< absolutes.length; i++){
-            answerArray[i] = absolutes[i] * (signs[i] ? 1 : -1);
-        }
-        for(int j : answerArray){
-            answer += j;
+            answer += absolutes[i] * (signs[i] ? 1 : -1);
         }
         return answer;
     }
