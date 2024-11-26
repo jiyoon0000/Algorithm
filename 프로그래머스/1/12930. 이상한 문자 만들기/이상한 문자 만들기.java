@@ -1,24 +1,25 @@
 class Solution {
     public String solution(String s) {
+        String[] words = s.split(" ", -1);
         StringBuilder answer = new StringBuilder();
-        int start = 0;
         
-        for(int i=0; i<=s.length(); i++){
-            if(i == s.length() || s.charAt(i) == ' '){
-                for(int j = start; j < i; j ++){
-                    char c = s.charAt(j);
-                    if((j-start) % 2 == 0){
-                        answer.append(Character.toUpperCase(c));
-                    }else {
-                        answer.append(Character.toLowerCase(c));
-                    }
+        for(int i=0; i<words.length; i++){
+            String word = words[i];
+            StringBuilder trans = new StringBuilder();
+                        
+            for(int j=0; j<word.length(); j++){
+                char c = word.charAt(j);
+                if(j%2 == 0){
+                    trans.append(Character.toUpperCase(c));
+                }else{
+                    trans.append(Character.toLowerCase(c));
                 }
-                
-                if(i != s.length()){
-                    answer.append(" ");
-                }
-                
-                start = i +1;
+            }
+            
+            answer.append(trans);
+            
+            if(i != words.length-1){
+                answer.append(" ");
             }
         }
         return answer.toString();
