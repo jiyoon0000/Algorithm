@@ -1,19 +1,25 @@
+import java.util.Stack;
+
 class Solution {
     public int solution(int[] ingredient) {
         int answer = 0;
-        int[] stack = new int[ingredient.length];
-        int top = -1;
+        Stack<Integer> stack = new Stack<>();
         
         for(int i : ingredient){
-            stack[++top] = i;
+            stack.push(i);
             
-            if(top >= 3){
-                if(stack[top - 3] == 1 &&
-                  stack[top - 2] == 2 &&
-                  stack[top - 1] == 3 &&
-                  stack[top] == 1){
+            if(stack.size() >= 4){
+                int size = stack.size();
+                
+                if(stack.get(size - 4) == 1 &&
+                  stack.get(size - 3) == 2 &&
+                  stack.get(size - 2) == 3 &&
+                  stack.get(size - 1) == 1){
                     
-                    top -= 4;
+                    stack.pop();
+                    stack.pop();
+                    stack.pop();
+                    stack.pop();
                     
                     answer++;
                 }
