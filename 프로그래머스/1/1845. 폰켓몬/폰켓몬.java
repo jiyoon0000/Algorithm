@@ -1,16 +1,16 @@
-import java.util.HashSet;
-
 class Solution {
     public int solution(int[] nums) {
-        int n = nums.length;
-        HashSet<Integer> mon = new HashSet<>();
+        int count = nums.length / 2;
+        boolean[] exist = new boolean[200001];
+        int mon = 0;
         
         for (int num : nums) {
-            mon.add(num);
+            if (!exist[num]){
+                exist[num] = true;
+                mon++;
+            }
         }
         
-        int count = n / 2;
-        
-        return Math.min(mon.size(), count);
+        return Math.min(mon, count);
     }
 }
