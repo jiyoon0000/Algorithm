@@ -1,32 +1,43 @@
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
     public String solution(String[] survey, int[] choices) {
-        int[] scores = new int[128];
+        
+        Map<Character, Integer> scores = new HashMap<>();
+        
+        char[][] types = {
+            {'R','T'},
+            {'C','F'},
+            {'J','M'},
+            {'A','N'}
+        };
+        
+        for (char[] type : types) {
+            scores.put(type[0], 0);
+            scores.put(type[1], 0);
+        }
         
         for (int i = 0; i < survey.length; i++) {
             String sur = survey[i];
             int choice = choices[i];
             
+            int score = Math.abs(choice - 4);
+            
             if (choice < 4) {
-                scores[sur.charAt(0)] += (4 - choice);
+                char disagree = sur.charAt(0);
+                scores.put(disagree, scores.get(disagree) + score);
             } else if (choice > 4) {
-                scores[sur.charAt(1)] += (choice - 4);
+                char agree = sur.charAt(1);
+                scores.put(agree, scores.get(agree) + score);
             }
         }
         
         StringBuilder answer = new StringBuilder();
-        answer.append(type(scores['R'], scores['T'], 'R', 'T'));
-        answer.append(type(scores['C'], scores['F'], 'C', 'F'));
-        answer.append(type(scores['J'], scores['M'], 'J', 'M'));
-        answer.append(type(scores['A'], scores['N'], 'A', 'N'));
+        for (char[] type : types) {
+            answer.append(scores.get(type[0]) >= scores.get(type[1]) ? type[0] : type[1]);
+        }
         
         return answer.toString();
     }
-    
-    private char type(int score1, int score2, char type1, char type2) {
-        if (score1 >= score2){
-            return type1;
-        } else {
-            return type2;
-        }
-    }   
 }
