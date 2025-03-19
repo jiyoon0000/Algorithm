@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Solution {
     public int[] solution(int[] array, int[][] commands) {
         int[] answer = new int[commands.length];
@@ -9,11 +7,25 @@ class Solution {
             int end = commands[i][1];
             int k = commands[i][2];
             
-            int[] a = Arrays.copyOfRange(array, start - 1, end);
+            int[] count = new int[101];
             
-            Arrays.sort(a);
+            for (int j = start - 1; j < end; j++) {
+                count[array[j]]++;
+            }
             
-            answer[i] = a[k - 1];
+            int a = 0;
+            int result = 0;
+            
+            for (int num = 1; num <= 100; num++) {
+                a += count[num];
+                
+                if (a >= k) {
+                    result = num;
+                    break;
+                }
+            }
+            
+            answer[i] = result;
         }
         return answer;
     }
