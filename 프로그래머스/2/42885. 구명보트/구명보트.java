@@ -1,17 +1,8 @@
+import java.util.Arrays;
+
 class Solution {
     public int solution(int[] people, int limit) {
-        int[] count = new int[241];
-        
-        for (int w : people) {
-            count[w]++;
-        }
-        
-        int i = 0;
-        for (int w = 40; w <= 240; w++) {
-            while (count[w]-- > 0) {
-                people[i++] = w;
-            }
-        }
+        Arrays.sort(people);
         
         int light = 0;
         int heavy = people.length - 1;
