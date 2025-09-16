@@ -1,25 +1,22 @@
 class Solution {
     public int[] solution(String s) {
-        int n = s.length();        
+        int n = s.length();
         int[] answer = new int[n];
         
-        int[] recent = new int[26];
-        
-        for (int i = 0; i < 26; i++) {
-            recent[i] = -1;
-        }
-        
         for (int i = 0; i < n; i++) {
-            char ch = s.charAt(i);
-            int alphabet = ch - 'a';
+            boolean found = false;
             
-            if (recent[alphabet] == -1) {
-                answer[i] = -1;
-            } else {
-                answer[i] = i - recent[alphabet];
+            for (int j = i - 1; j >= 0; j--) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    answer[i] = i - j;
+                    found = true;
+                    break;
+                }
             }
             
-            recent[alphabet] = i;
+            if (!found) {
+                answer[i] = -1;
+            }
         }
         return answer;
     }
